@@ -1,0 +1,12 @@
+# Node
+node_modules/
+.env
+
+# Vue
+dist/
+
+# Logs
+*.log
+
+# OS junk
+.DS_Store
