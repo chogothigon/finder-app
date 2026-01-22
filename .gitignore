@@ -10,3 +10,15 @@ dist/
 
 # OS junk
 .DS_Store
+
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.env
+
+# Virtual environment
+venv/
+.venv/
