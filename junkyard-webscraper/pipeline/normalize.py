@@ -1,15 +1,17 @@
 def normalize(raw, source_site):
-    return {
-        "source_site": source_site,
-        "yard_name": raw.get("yard"),
-        "yard_location": "UT",
-        "stock_number": raw.get("stock_num"),
-        "vin": raw.get("vin"),
-        "year": raw.get("year"),
-        "make": None,
-        "model": raw.get("model"),
-        "color": raw.get("color"),
-        "row_location": raw.get("row"),
-        "arrival_date": raw.get("date"),
-        "image_url": raw.get("image"),
-    }
+    if not raw.get("stockId"):
+        print("Skipping vehicle, missing stock_number:", raw)
+    else: 
+        return {
+            "source_site": source_site,
+            "stock_number": raw.get("stockId"),
+            "vin": raw.get("vin"),
+            "make": raw.get("make"),
+            "model": raw.get("model"),
+            "year": raw.get("year"),
+            "color": raw.get("color"),
+            "yard_name": raw.get("yardName"),
+            "yard_location": raw.get("yardAddress"),
+            "yard_zip": raw.get("yardZip"),
+            "yard_row": raw.get("yardRow")
+        }
