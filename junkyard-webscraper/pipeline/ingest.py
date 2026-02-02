@@ -1,9 +1,8 @@
 def mark_all_inactive(cur, source_site):
     cur.execute("""
         UPDATE vehicles
-        SET is_active = FALSE
-        WHERE source_site = %s;
-    """, (source_site,))
+        SET is_active = FALSE;
+    """)
 
 def upsert_vehicle(cur, v):
     cur.execute("""
