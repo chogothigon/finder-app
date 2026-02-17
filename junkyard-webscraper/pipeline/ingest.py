@@ -1,36 +1,82 @@
-def mark_all_inactive(cur, source_site):
+def mark_all_inactive(cur):
     cur.execute("""
-        UPDATE vehicles
-        SET is_active = FALSE;
+        UPDATE car
+        SET car_active = FALSE;
     """)
 
-def upsert_vehicle(cur, v):
+
+def upsert_junkyard(cur, junkyard):
     cur.execute("""
-        INSERT INTO vehicles (
-            source_site, stock_number, vin,
-            make, model, year, color,
-            yard_name, yard_location,
-            yard_zip, yard_row,
-            first_seen, last_seen, is_active
+        INSERT INTO junkyard (
+            junkyard_city,
+            junkyard_state,
+            junkyard_zip,
+            junkyard_lat,
+            junkyard_long,
+            junkyard_phone,
+            junkyard_website
         )
         VALUES (
-            %(source_site)s, %(stock_number)s, %(vin)s,
-            %(make)s, %(model)s, %(year)s, %(color)s,
-            %(yard_name)s, %(yard_location)s,
-            %(yard_zip)s, %(yard_row)s,
-            NOW(), NOW(), TRUE
+            %(junkyard_city)s,
+            %(junkyard_state)s,
+            %(junkyard_zip)s,
+            %(junkyard_lat)s,
+            %(junkyard_long)s,
+            %(junkyard_phone)s,
+            %(junkyard_website)s
         )
-        ON CONFLICT (source_site, stock_number)
+        ON CONFLICT (junkyard_city, junkyard_state, junkyard_zip, junkyard_website)
         DO UPDATE SET
-            vin = EXCLUDED.vin,
-            make = EXCLUDED.make,
-            model = EXCLUDED.model,
-            year = EXCLUDED.year,
-            color = EXCLUDED.color,
-            yard_name = EXCLUDED.yard_name, 
-            yard_location = EXCLUDED.yard_location,
-            yard_zip = EXCLUDED.yard_zip,
-            yard_row = EXCLUDED.yard_row,
-            last_seen = NOW(),
-            is_active = TRUE;
-    """, v)
+            junkyard_phone = EXCLUDED.junkyard_phone,
+            junkyard_lat = EXCLUDED.junkyard_lat,
+            junkyard_long = EXCLUDED.junkyard_long
+        RETURNING junkyard_id;
+    """, junkyard)
+    return cur.fetchone()[0]
+
+
+def upsert_car(cur, car, junkyard_id):
+    payload = {**car, "junkyard_id": junkyard_id}
+    cur.execute("""
+        INSERT INTO car (
+            car_year,
+            car_make,
+            car_model,
+            car_vin,
+            car_arrival_date,
+            car_engine_data,
+            car_active,
+            car_source,
+            junkyard_id
+        )
+        VALUES (
+            %(car_year)s,
+            %(car_make)s,
+            %(car_model)s,
+            %(car_vin)s,
+            %(car_arrival_date)s,
+            %(car_engine_data)s,
+            %(car_active)s,
+            %(car_source)s,
+            %(junkyard_id)s
+        )
+        ON CONFLICT (car_vin, junkyard_id, car_arrival_date)
+        DO UPDATE SET
+            car_make = EXCLUDED.car_make,
+            car_model = EXCLUDED.car_model,
+            car_year = EXCLUDED.car_year,
+            car_engine_data = EXCLUDED.car_engine_data,
+            car_active = TRUE,
+            car_source = EXCLUDED.car_source
+        RETURNING car_id;
+    """, payload)
+    return cur.fetchone()[0]
+
+
+def upsert_car_images(cur, car_id, image_urls):
+    for url in image_urls:
+        cur.execute("""
+            INSERT INTO car_image (image_url, car_id)
+            VALUES (%s, %s)
+            ON CONFLICT (car_id, image_url) DO NOTHING;
+        """, (url, car_id))
