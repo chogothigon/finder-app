@@ -1,36 +1,49 @@
 const express = require('express');
 const cors = require('cors');
-const { Pool } = require('pg');
+const mysql = require('mysql2/promise');
 require('dotenv').config();
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 
-const pool = new Pool({
+const pool = mysql.createPool({
   user: process.env.DB_USER,
   host: process.env.DB_HOST,
   database: process.env.DB_NAME,
   password: process.env.DB_PASS,
-  port: 5432,
+  port: Number(process.env.DB_PORT || 3306),
+  waitForConnections: true,
+  connectionLimit: 10,
+  queueLimit: 0,
 });
 
-app.get('/api/makes', async (req, res) => {
+app.get('/api/cars', async (req, res) => {
   try {
-    const result = await pool.query('SELECT * FROM make');
-    res.json(result.rows);
+    const [rows] = await pool.query('SELECT * FROM car');
+    res.json(rows);
   } catch (err) {
-    console.error('DB ERROR:', err);  // <-- prints real DB error
+    console.error('DB ERROR:', err);
     res.status(500).json({ error: err.message });
   }
 });
 
-app.get('/api/vehicles', async (req, res) => {
+app.get('/api/junkyards', async (req, res) => {
   try {
-    const result = await pool.query('SELECT * FROM vehicles');
-    res.json(result.rows);
+    const [rows] = await pool.query('SELECT * FROM junkyard');
+    res.json(rows);
   } catch (err) {
-    console.error('DB ERROR:', err);  // <-- prints real DB error
+    console.error('DB ERROR:', err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.get('/api/users', async (req, res) => {
+  try {
+    const [rows] = await pool.query('SELECT * FROM users');
+    res.json(rows);
+  } catch (err) {
+    console.error('DB ERROR:', err);
     res.status(500).json({ error: err.message });
   }
 });
