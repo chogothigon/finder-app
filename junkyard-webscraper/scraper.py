@@ -5,11 +5,11 @@ from db.connection import get_connection
 
 
 def main():
-    conn = get_connection()
-    cur = conn.cursor()
+    #conn = get_connection()
+    #cur = conn.cursor()
     
     # Used to track if cars might have been deleted without actually removing them from the database 
-    mark_all_inactive(cur)
+    #mark_all_inactive(cur)
 
     pullnsave_raw_results = search_pullnsave_inventory() #maybe just change so it doesn't use 0 later?
     for raw in pullnsave_raw_results.get("data"):

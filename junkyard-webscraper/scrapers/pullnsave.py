@@ -13,7 +13,7 @@ def search_pullnsave_inventory(make=0, model=0, yard=0):
         "yard[]": yard,
         "zip": "",
         "radius": 0,
-        "security": "0418e80fd5"  # ⚠️ dynamic nonce
+        "security": "e99a6b9c01"  # ⚠️ dynamic nonce
     }
 
     headers = {
