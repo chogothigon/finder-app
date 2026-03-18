@@ -10,7 +10,7 @@
 
 <script>
 export default {
-  name: 'Login',
+  name: 'LoginView',
   data: () => ({
     apiOrigin: process.env.VUE_APP_API_ORIGIN
   })
