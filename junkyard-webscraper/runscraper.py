@@ -1,4 +1,5 @@
 from scrapers.pullnsave import search_pullnsave_inventory
+from scrapers.lkq import search_pyp_inventory
 from pipeline.normalize import normalize
 from pipeline.ingest import upsert_car, upsert_car_images, upsert_junkyard, mark_all_inactive, load_junkyard_cache
 from db.connection import get_connection
@@ -38,23 +39,45 @@ def dedupe_junkyards(normalized_rows):
 
     return list(junkyard_map.values()), cars'''
 
-def pullnsave(cur, junkyard_cache):
-    pullnsave_raw_results = search_pullnsave_inventory()
-    for raw in pullnsave_raw_results.get("data"):
+# TODO Finish
+def lkq(cur, junkyard_cache):
+    lkq_raw_results = search_pyp_inventory("2003", "dayton")
+    for raw in lkq_raw_results.get("data"):
         vehicle_info = normalize(raw, "https://www.pullnsave.com")
         if vehicle_info:
             car_id = upsert_car(cur, vehicle_info, junkyard_cache)
             upsert_car_images(cur, car_id, [f"https://app.pullnsaveapp.com/v1/Vehicles/Images/StockId/{raw.get('stockId')}/OrderId/1"])
     print("Finished pullnsave")
 
-def lkq(cur, junkyard_cache):
+# TODO Finish
+def picknpull(cur, junkyard_cache):
+    return
+
+# TODO Finish
+def pullapart(cur, junkyard_cache):
+    return
+
+def pullnsave(cur, junkyard_cache):
     pullnsave_raw_results = search_pullnsave_inventory()
     for raw in pullnsave_raw_results.get("data"):
         vehicle_info = normalize(raw, "https://www.pullnsave.com")
         if vehicle_info:
             car_id = upsert_car(cur, vehicle_info, junkyard_cache)
+            # TODO NEEDS TO BE CORRECTED FOR ALL 4 Photos only does 1 right now
             upsert_car_images(cur, car_id, [f"https://app.pullnsaveapp.com/v1/Vehicles/Images/StockId/{raw.get('stockId')}/OrderId/1"])
     print("Finished pullnsave")
+
+# TODO Finish
+def tearapart(cur, junkyard_cache):
+    return
+
+# TODO Finish
+def upullandsave(cur, junkyard_cache):
+    return
+
+# TODO Finish
+def utpap(cur, junkyard_cache):
+    return
 
 def main():
     '''pullnsave_raw_results = search_pullnsave_inventory()
@@ -74,8 +97,14 @@ def main():
     # Get all junkyard ID's
     junkyard_cache = load_junkyard_cache(cur)
     
+    
+    #lkq(cur, junkyard_cache)
+    picknpull(cur, junkyard_cache)
+    pullapart(cur, junkyard_cache)
     #pullnsave(cur, junkyard_cache)
-    lkq(cur, junkyard_cache)
+    tearapart(cur, junkyard_cache)
+    upullandsave(cur, junkyard_cache)
+    utpap(cur, junkyard_cache)
 
     conn.commit()
     cur.close()

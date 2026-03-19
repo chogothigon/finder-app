@@ -1,3 +1,79 @@
+from playwright.sync_api import sync_playwright
+
+YARD_IDS = {
+    "dayton": "1257",
+    "cincinnati": "1253",
+}
+
+def fetch_pyp_page(page, query, location):
+    yard_id = YARD_IDS[location]
+
+    url = f"https://www.pyp.com/inventory/{location}-{yard_id}/?search={query}"
+
+    with sync_playwright() as p:
+        browser = p.chromium.launch(headless=True)
+        context = browser.new_context()
+        page_obj = context.new_page()
+
+        # 👇 Listen for the API response
+        with page_obj.expect_response(
+            lambda response: "getVehicleInventory.aspx" in response.url
+        ) as response_info:
+
+            page_obj.goto(url)
+
+        response = response_info.value
+
+        # 👇 This is the real JSON response from the browser
+        data = response.json()
+
+        browser.close()
+        return data
+
+def search_pyp_inventory(query, location):
+    results = []
+    page = 1
+
+    while True:
+        data = fetch_pyp_page(page, query, location)
+
+        # 🔍 Inspect structure once to confirm keys
+        vehicles = data.get("data") or data.get("Results") or []
+
+        if not vehicles:
+            break
+
+        for v in vehicles:
+            car = {
+                "year": v.get("Year"),
+                "make": v.get("Make"),
+                "model": v.get("Model"),
+                "vin": v.get("VIN"),
+                "stock_num": v.get("StockNumber"),
+                "color": v.get("Color"),
+                "date": v.get("DateInYard"),
+                "image_urls": v.get("Images", []),
+                "location": location
+            }
+
+            results.append(car)
+
+        page += 1
+
+    return results
+
+
+
+
+
+
+
+
+
+
+
+
+'''
 import requests
 from bs4 import BeautifulSoup
 
@@ -23,7 +99,7 @@ def fetch_page(page, query, location):
         return None
     return response.text
 
-def search_inventory(query, location):
+def search_pullnsave_inventory(query, location):
     try:
         results = []
         page_num = 1
@@ -115,3 +191,5 @@ def search_inventory(query, location):
     except Exception as e: 
         print(f"Error fetching LKQ inventory: {e}")
         return []
+
+        '''
