@@ -37,7 +37,7 @@ def _parse_arrival_date(raw_date):
         return date.today().isoformat()
 
 
-def normalize(raw, source_site):
+def normalize(raw, car_source):
     if not raw.get("stockId"):
         print("Skipping vehicle, missing stock_number:", raw)
         return None
@@ -58,7 +58,8 @@ def normalize(raw, source_site):
             "junkyard_lat": 0.0,
             "junkyard_long": 0.0,
             "junkyard_phone": "N/A",
-            "junkyard_website": "https://www.pullnsave.com"
+            "junkyard_website": "https://www.pullnsave.com",
+            "junkyard_name": raw.get("yardName")
         },
         "car": {
             "car_year": int(raw.get("year")),
@@ -66,9 +67,9 @@ def normalize(raw, source_site):
             "car_model": _truncate(raw.get("model", "").upper(), 50),
             "car_vin": _truncate(raw.get("vin") or raw.get("stockId"), 32),
             "car_arrival_date": _parse_arrival_date(raw.get("rcvdDtTm")),
-            "car_engine_data": _truncate(raw.get("engine") or "", 1024),
+            "car_engine_data": _truncate(raw.get("engineDesk") or "", 1024),
             "car_active": True,
-            "car_source": "https://www.pullnsave.com/inventory/"
+            "car_source": car_source
         },
         "images": raw.get("image_urls", [])
     }
