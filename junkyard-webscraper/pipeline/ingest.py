@@ -4,39 +4,20 @@ def mark_all_inactive(cur):
         SET car_active = FALSE;
     """)
 
-
-def upsert_junkyard(cur, junkyard):
+def load_junkyard_cache(cur):
     cur.execute("""
-        INSERT INTO junkyard (
-            junkyard_city,
-            junkyard_state,
-            junkyard_zip,
-            junkyard_lat,
-            junkyard_long,
-            junkyard_phone,
-            junkyard_website
-        )
-        VALUES (
-            %(junkyard_city)s,
-            %(junkyard_state)s,
-            %(junkyard_zip)s,
-            %(junkyard_lat)s,
-            %(junkyard_long)s,
-            %(junkyard_phone)s,
-            %(junkyard_website)s
-        )
-        ON CONFLICT (junkyard_city, junkyard_state, junkyard_zip, junkyard_website)
-        DO UPDATE SET
-            junkyard_phone = EXCLUDED.junkyard_phone,
-            junkyard_lat = EXCLUDED.junkyard_lat,
-            junkyard_long = EXCLUDED.junkyard_long
-        RETURNING junkyard_id;
-    """, junkyard)
-    return cur.fetchone()[0]
+        SELECT junkyard_id, junkyard_name
+        FROM junkyard;
+    """)
+    return {
+        row[1]: row[0]
+        for row in cur.fetchall()
+    }
 
+def upsert_car(cur, info, junkyard_cache):
+    junkyard_id = junkyard_cache.get(info["junkyard"]["junkyard_name"], 1)
+    payload = {**info["car"], "junkyard_id": junkyard_id}
 
-def upsert_car(cur, car, junkyard_id):
-    payload = {**car, "junkyard_id": junkyard_id}
     cur.execute("""
         INSERT INTO car (
             car_year,
@@ -80,3 +61,37 @@ def upsert_car_images(cur, car_id, image_urls):
             VALUES (%s, %s)
             ON CONFLICT (car_id, image_url) DO NOTHING;
         """, (url, car_id))
+
+
+
+# Probably can delete and just do by hand
+def upsert_junkyard(cur, junkyard):
+    cur.execute("""
+        INSERT INTO junkyard (
+            junkyard_city,
+            junkyard_state,
+            junkyard_zip,
+            junkyard_lat,
+            junkyard_long,
+            junkyard_phone,
+            junkyard_website,
+            junkyard_name
+        )
+        VALUES (
+            %(junkyard_city)s,
+            %(junkyard_state)s,
+            %(junkyard_zip)s,
+            %(junkyard_lat)s,
+            %(junkyard_long)s,
+            %(junkyard_phone)s,
+            %(junkyard_website)s,
+            %(junkyard_name)s  
+        )
+        ON CONFLICT (junkyard_city, junkyard_state, junkyard_zip, junkyard_website)
+        DO UPDATE SET
+            junkyard_phone = EXCLUDED.junkyard_phone,
+            junkyard_lat = EXCLUDED.junkyard_lat,
+            junkyard_long = EXCLUDED.junkyard_long
+        RETURNING junkyard_id;
+    """, junkyard)
+    return cur.fetchone()[0]

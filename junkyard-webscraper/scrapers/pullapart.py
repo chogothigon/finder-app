@@ -124,3 +124,87 @@ def search_inventory(make, model, location):
     except Exception as e:
         print(f"Error searching inventory: {e}")
         return results
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+'''
+    if not data.get("success"):
+        return []
+    
+    results = []
+
+    for car in data["data"]:
+        car_data = {
+            "yard": car["yardName"],
+            "year": car["year"],
+            "make": car["make"],
+            "model": car["model"],
+            "color": car["color"],
+            "vin": car["vin"],
+            "stock_num": car["stockId"],
+            "row": car["yardRow"],
+            "date": car["rcvdDtTm"],
+            "yard_address": car["yardAddress"],
+            "yard_zip": car["yardZip"]
+        }
+        results.append(car_data)
+    '''
+
+
+
+
+'''
+## probably delete!!!
+from bs4 import BeautifulSoup
+def get_makes_from_pullnsave():
+    url = "https://pullnsave.com/wp-admin/admin-ajax.php"
+
+    payload = {
+        "action": "getMakes"
+    }
+
+    headers = {
+        "accept": "*/*",
+        "content-type": "application/x-www-form-urlencoded; charset=UTF-8",
+        "origin": "https://www.pullnsave.com",
+        "referer": "https://www.pullnsave.com/",
+        "x-requested-with": "XMLHttpRequest",
+        "user-agent": (
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+            "AppleWebKit/537.36 (KHTML, like Gecko) "
+            "Chrome/144.0.0.0 Safari/537.36"
+        )
+    }
+
+    response = requests.post(url, data=payload, headers=headers)
+    response.raise_for_status()
+
+    soup = BeautifulSoup(response.text, "html.parser")
+
+    makes = []
+    for option in soup.find_all("option"):
+        value = option.get("value")
+        text = option.get_text(strip=True)
+
+        if value:
+            makes.append(text)
+
+    return makes
+'''
