@@ -2,7 +2,7 @@
   <nav class="navbar">
     <h1>Parts Finder</h1>
     <div class="nav-inner">
-      <router-link to="/" class="nav-item">Search</router-link>
+      <router-link to="/search" class="nav-item">Search</router-link>
       <router-link to="/about" class="nav-item">About</router-link>
       <router-link to="/random" class="nav-item">Random</router-link>
       <router-link to="/donate" class="nav-item">Donate</router-link>

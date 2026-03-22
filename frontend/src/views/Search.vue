@@ -1,12 +1,17 @@
 <template>
   <section>
     <h2>Search</h2>
-    <input type="text" placeholder="Search..." />
+    <SearchBar />
   </section>
 </template>
 
 <script>
+import SearchBar from '../components/SearchBar.vue'
+
 export default {
-  name: 'SearchView'
+  name: 'SearchView',
+  components: {
+    SearchBar
+  }
 }
 </script>
