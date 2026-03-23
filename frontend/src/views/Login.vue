@@ -1,9 +1,7 @@
 <template>
   <div id='login'>
-    <h1>Welcome to your Task List!</h1>
+    <h1>Login/Register</h1>
     <v-btn :href="`${apiOrigin}/api/v1/auth/google`" color="primary">
-      <v-icon left>mdi-google</v-icon>
-      Log In with Google
     </v-btn>
   </div>
 </template>

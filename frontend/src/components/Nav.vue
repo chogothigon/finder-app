@@ -21,11 +21,6 @@ export default {
 .navbar {
   width: 95%;
   margin: 20px auto;
-  border: 1px solid #d9d9d9;
-  border-radius: 16px;
-  background-color: white;
-  padding: 18px 24px;
-  box-sizing: border-box;
 }
 
 .nav-inner {
@@ -41,6 +36,11 @@ export default {
   color: #2c3e50;
   font-size: 1.2rem;
   font-weight: 500;
+  border: 1px solid #d9d9d9;
+  border-radius: 10px;
+  padding: 10px 16px;
+  background-color: white;
+  transition: all 0.2s ease;
 }
 
 .nav-item:hover {

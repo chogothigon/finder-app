@@ -1,29 +1,42 @@
 <template>
   <div class="search-bar">
-    <label for="make">Make</label>
-    <select id="make">
-      <!--PLACEHOLDER-->
-      <option>A</option>
-      <option>B</option>
-    </select>
+    <div class="field-group">
+      <label for="make">Make</label>
+      <select id="make">
+        <!--PLACEHOLDER-->
+        <option>A</option>
+        <option>B</option>
+      </select>
+    </div>
 
-    <label for="model">Model</label>
-    <select id="model">
-      <!--PLACEHOLDER-->
-      <option>A</option>
-      <option>B</option>
-    </select>
+    <div class="field-group">
+      <label for="model">Model</label>
+      <select id="model">
+        <!--PLACEHOLDER-->
+        <option>A</option>
+        <option>B</option>
+      </select>
+    </div>
 
-    <label for="distance">Distance</label>
-    <select id="distance">
-      <!--PLACEHOLDER-->
-      <option>A</option>
-      <option>B</option>
-    </select>
+    <div class="field-group">
+      <label for="distance">Distance</label>
+      <select id="distance">
+        <!--PLACEHOLDER-->
+        <option>A</option>
+        <option>B</option>
+      </select>
+    </div>
 
-    <label for="zip">ZIP</label>
-    <input type="text" id="zip">
+    <div class="field-group">
+      <label for="zip">ZIP</label>
+      <input type="text" id="zip">
+    </div>
+
+    <button>Search</button>
+
   </div>
+
+  
 </template>
 
 <script>

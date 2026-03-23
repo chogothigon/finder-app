@@ -1,6 +1,6 @@
 <template>
   <section>
-    <h2>About</h2>
+    <h2>General Info</h2>
   </section>
 </template>
 
