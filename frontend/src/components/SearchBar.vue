@@ -18,14 +18,6 @@
       </select>
     </div>
 
-    <div class="field-group">
-      <label for="distance">Distance</label>
-      <select id="distance">
-        <!--PLACEHOLDER-->
-        <option>A</option>
-        <option>B</option>
-      </select>
-    </div>
 
     <div class="field-group">
       <label for="zip">ZIP</label>
