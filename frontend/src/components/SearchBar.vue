@@ -3,18 +3,18 @@
     <div class="field-group">
       <label for="make">Make</label>
       <select id="make">
-        <!--PLACEHOLDER-->
-        <option>A</option>
-        <option>B</option>
+        <option 
+        v-for="make in uniqueMakes" :key="make" :value="make">{{ make }}
+        </option>
       </select>
     </div>
 
     <div class="field-group">
       <label for="model">Model</label>
       <select id="model">
-        <!--PLACEHOLDER-->
-        <option>A</option>
-        <option>B</option>
+        <option 
+        v-for="model in uniqueModels" :key="model" :value="model">{{ model }}
+        </option>
       </select>
     </div>
 
