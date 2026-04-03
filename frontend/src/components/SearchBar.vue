@@ -12,7 +12,7 @@
 
     <div class="field-group">
       <label for="model">Model</label>
-      <select id="model" v-model="selectedModel">
+      <select id="model" v-model="selectedModel" :disabled="!selectedMake">
         <option disabled value="">Select</option>
         <option 
         v-for="model in uniqueModels" :key="model" :value="model">{{ model }}
@@ -134,7 +134,15 @@ label {
   color: #2c3e50;
 }
 
-select,
+select{
+  font-size: 1.1rem;
+  padding: 10px 14px;
+  border: 1px solid #d9d9d9;
+  border-radius: 10px;
+  background-color: white;
+  color: #2c3e50;
+  width: 200px;
+}
 input {
   font-size: 1.1rem;
   padding: 10px 14px;
@@ -142,5 +150,6 @@ input {
   border-radius: 10px;
   background-color: white;
   color: #2c3e50;
+  width: 220px;
 }
 </style>
