@@ -26,7 +26,7 @@
       <input type="text" id="zip">
     </div>
 
-    <button>Search</button>
+    <button @click="doSearch">Search</button>
 
   </div>
 
@@ -42,7 +42,8 @@ export default {
       uniqueMakes: [],
       uniqueModels: [],
       selectedMake: '',
-      selectedModel: ''
+      selectedModel: '',
+      searchResults: []
     }
   },
    async mounted() {
@@ -65,7 +66,42 @@ export default {
     } catch (err) {
       console.error('Error loading makes:', err)
     }
+  },
+  watch: {
+  selectedMake(newMake) {
+    if (!newMake) {
+      this.uniqueModels = []
+      this.selectedModel = ''
+      return
+    }
+
+    const models = this.cars
+      .filter(car => car.car_make === newMake)
+      .map(car => car.car_model)
+      .filter(Boolean)
+
+    this.uniqueModels = [...new Set(models)].sort()
+    this.selectedModel = ''
   }
+},
+methods: {
+  doSearch() {
+    this.searchResults = this.cars.filter(car => {
+      const matchesMake =
+        !this.selectedMake || car.car_make === this.selectedMake
+
+      const matchesModel =
+        !this.selectedModel || car.car_model === this.selectedModel
+
+      return matchesMake && matchesModel
+    })
+
+    console.log('Selected make:', this.selectedMake)
+    console.log('Selected model:', this.selectedModel)
+    console.log('Search results:', this.searchResults)
+  }
+}
+
 }
 </script>
 
