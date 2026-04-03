@@ -63,6 +63,20 @@ export default {
   flex-direction: column;
 }
 
+.image-wrapper {
+  width: 100%;
+  height: 160px;
+  background-color: #f2f2f2;
+  overflow: hidden;
+}
+
+.car-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
 .image-placeholder {
   height: 160px;
   background-color: #f2f2f2;
@@ -76,6 +90,9 @@ export default {
 
 .card-content {
   padding: 16px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
 }
 
 .car-title {
