@@ -25,6 +25,7 @@ app.get('/api/cars', async (req, res) => {
   try {
     const result = await pool.query(
       //'SELECT * FROM car'
+      `
       SELECT
         c.*,
         ci.image_url
@@ -37,7 +38,8 @@ app.get('/api/cars', async (req, res) => {
       ORDER BY car_id, image_id
   ) ci
     ON c.car_id = ci.car_id 
-    );
+    `);
+    
     res.json(result.rows);
     //const [rows] = await pool.query('SELECT * FROM car');
     //res.json(rows);

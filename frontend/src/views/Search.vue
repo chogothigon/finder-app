@@ -34,7 +34,7 @@ export default {
     return {
       cars: [],
       searchResults: [],
-      currentlyVisible: 50
+      currentlyVisible: 48
     }
   },
   computed: {
@@ -64,13 +64,13 @@ export default {
       return matchesMake && matchesModel
     })
 
-    this.currentlyVisible = 50
+    this.currentlyVisible = 48
 
     console.log('Filters:', filters)
     console.log('Filtered results:', this.searchResults)
   },
   loadMore() {
-    this.currentlyVisible += 50
+    this.currentlyVisible += 48
   }
 }
 }
