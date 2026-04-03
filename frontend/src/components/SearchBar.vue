@@ -2,7 +2,8 @@
   <div class="search-bar">
     <div class="field-group">
       <label for="make">Make</label>
-      <select id="make">
+      <select id="make" v-model="selectedMake">
+        <option disabled value="">Select</option>
         <option 
         v-for="make in uniqueMakes" :key="make" :value="make">{{ make }}
         </option>
@@ -11,7 +12,8 @@
 
     <div class="field-group">
       <label for="model">Model</label>
-      <select id="model">
+      <select id="model" v-model="selectedModel">
+        <option disabled value="">Select</option>
         <option 
         v-for="model in uniqueModels" :key="model" :value="model">{{ model }}
         </option>
@@ -33,7 +35,37 @@
 
 <script>
 export default {
-  name: 'SearchBar'
+  name: 'SearchBar',
+  data() {
+    return {
+      cars: [],
+      uniqueMakes: [],
+      uniqueModels: [],
+      selectedMake: '',
+      selectedModel: ''
+    }
+  },
+   async mounted() {
+    try {
+      console.log('SearchBar mounted')
+
+      const response = await fetch('/api/cars')
+      console.log('response ok:', response.ok)
+
+      const data = await response.json()
+      console.log('data:', data)
+
+      this.cars = data
+
+      const makes = data.map(car => car.car_make).filter(Boolean)
+      console.log('makes:', makes)
+
+      this.uniqueMakes = [...new Set(makes)].sort()
+      console.log('uniqueMakes:', this.uniqueMakes)
+    } catch (err) {
+      console.error('Error loading makes:', err)
+    }
+  }
 }
 </script>
 
