@@ -47,6 +47,7 @@ export default {
       const response = await fetch('/api/cars')
       const data = await response.json()
       this.cars = data
+      this.searchResults = data
     } catch (error) {
       console.error('CANNOT FETCH CARS:', error)
     }
@@ -82,7 +83,7 @@ export default {
 
 .car-grid {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 20px;
   margin-top: 30px;
 }

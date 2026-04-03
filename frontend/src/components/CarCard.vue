@@ -1,7 +1,15 @@
 <template>
   <div class="car-card">
-    <div class="image-placeholder">
-      <span>No Image</span>
+    <div class="image-wrapper">
+      <img
+        v-if="car.image_url"
+        :src="car.image_url"
+        alt="Car image"
+        class="car-image"
+      />
+      <div v-else class="image-placeholder">
+        <span>No Image</span>
+      </div>
     </div>
 
     <div class="card-content">

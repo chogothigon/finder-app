@@ -23,7 +23,21 @@ const pool = new Pool({
 
 app.get('/api/cars', async (req, res) => {
   try {
-    const result = await pool.query('SELECT * FROM car');
+    const result = await pool.query(
+      //'SELECT * FROM car'
+      SELECT
+        c.*,
+        ci.image_url
+      FROM car c
+      LEFT JOIN (
+        SELECT DISTINCT ON (car_id)
+        car_id,
+        image_url
+      FROM car_image 
+      ORDER BY car_id, image_id
+  ) ci
+    ON c.car_id = ci.car_id 
+    );
     res.json(result.rows);
     //const [rows] = await pool.query('SELECT * FROM car');
     //res.json(rows);
