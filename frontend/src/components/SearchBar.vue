@@ -42,10 +42,10 @@ export default {
       uniqueMakes: [],
       uniqueModels: [],
       selectedMake: '',
-      selectedModel: '',
-      searchResults: []
+      selectedModel: ''
     }
   },
+  
    async mounted() {
     try {
       console.log('SearchBar mounted')
@@ -86,22 +86,12 @@ export default {
 },
 methods: {
   doSearch() {
-    this.searchResults = this.cars.filter(car => {
-      const matchesMake =
-        !this.selectedMake || car.car_make === this.selectedMake
-
-      const matchesModel =
-        !this.selectedModel || car.car_model === this.selectedModel
-
-      return matchesMake && matchesModel
+    this.$emit('search', {
+      make: this.selectedMake,
+      model: this.selectedModel
     })
-
-    console.log('Selected make:', this.selectedMake)
-    console.log('Selected model:', this.selectedModel)
-    console.log('Search results:', this.searchResults)
   }
 }
-
 }
 </script>
 
