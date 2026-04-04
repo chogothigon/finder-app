@@ -1,6 +1,5 @@
 <template>
   <section class="random-view">
-    <h2>Random Car</h2>
     <div v-if="randomCar" class="random-card">
       <div class="image-wrapper">
         <img

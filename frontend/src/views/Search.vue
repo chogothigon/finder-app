@@ -1,6 +1,5 @@
 <template>
   <section class="search-view">
-    <h2>Search</h2>
     <SearchBar @search="doSearch" />
     <div class="car-grid" v-if="visibleResults.length">
       <CarCard v-for="car in visibleResults" :key="car.car_id" :car="car" />
@@ -83,7 +82,8 @@ export default {
 
 .car-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(4, 240px);
+  justify-content: center;
   gap: 20px;
   margin-top: 30px;
 }

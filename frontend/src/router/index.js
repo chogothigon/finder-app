@@ -7,6 +7,10 @@ import Login from '../views/Login.vue'
 
 const routes = [
   {
+    path: '/',
+    redirect: '/search'
+  },
+  {
     path: '/search',
     name: 'Search',
     component: Search
