@@ -26,6 +26,11 @@
         >
           View Source
         </a>
+
+        <button class="random-btn" @click="pickRandomCar">
+          Show Another Random Car
+        </button>
+
         <button
           class="fav-btn"
           @click.stop="handleFavorite"
@@ -33,10 +38,6 @@
         >
           <span v-if="favorited">❤️</span>
           <span v-else>🤍</span>
-        </button>
-
-        <button class="random-btn" @click="pickRandomCar">
-          Show Another Random Car
         </button>
       </div>
     </div>
