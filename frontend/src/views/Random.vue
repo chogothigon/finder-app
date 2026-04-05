@@ -18,6 +18,7 @@
         <p><strong>VIN:</strong> {{ randomCar.car_vin }}</p>
         <p><strong>Arrival Date:</strong> {{ formattedArrivalDate }}</p>
         <p><strong>Source:</strong></p>
+
         <a
           :href="randomCar.car_source"
           target="_blank"
@@ -25,6 +26,14 @@
         >
           View Source
         </a>
+        <button
+          class="fav-btn"
+          @click.stop="handleFavorite"
+          :title="favorited ? 'Remove from favorites' : 'Add to favorites'"
+        >
+          <span v-if="favorited">❤️</span>
+          <span v-else>🤍</span>
+        </button>
 
         <button class="random-btn" @click="pickRandomCar">
           Show Another Random Car
