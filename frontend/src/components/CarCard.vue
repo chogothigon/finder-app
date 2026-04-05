@@ -42,7 +42,7 @@
 </template>
 
 <script>
-//import { initFavorites, isFavorited, toggleFavorite, favoritesState } from '@/composables/useFavorites'
+import { initFavorites, isFavorited, toggleFavorite, favoritesState } from '@/composables/useFavorites'
 
 export default {
   name: 'CarCard',
