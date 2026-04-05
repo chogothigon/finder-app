@@ -13,12 +13,22 @@
     </div>
 
     <div class="card-content">
-      <h3 class="car-title">{{ car.car_make }} {{ car.car_model }}</h3>
-
+      <div class="card-header">
+        <h3 class="car-title">{{ car.car_make }} {{ car.car_model }}</h3>
+        <button
+          class="fav-btn"
+          @click.stop="handleFavorite"
+          :title="favorited ? 'Remove from favorites' : 'Add to favorites'"
+        >
+          <span v-if="favorited">❤️</span>
+          <span v-else>🤍</span>
+        </button>
+      </div>
+ 
       <p class="car-year">Year: {{ car.car_year }}</p>
       <p class="car-vin">VIN: {{ car.car_vin }}</p>
       <p class="car-date">Arrival Date: {{ formattedArrivalDate }}</p>
-
+ 
       <a
         class="source-link"
         :href="car.car_source"
@@ -32,6 +42,8 @@
 </template>
 
 <script>
+import { initFavorites, isFavorited, toggleFavorite, favoritesState } from '@/composables/useFavorites'
+
 export default {
   name: 'CarCard',
   props: {
@@ -41,11 +53,27 @@ export default {
     }
   },
   computed: {
+    favorited() {
+      return isFavorited(this.car.car_id)
+    },
+
+    _favState() {
+      return favoritesState.favorites
+    },
+
     formattedArrivalDate() {
       if (!this.car.car_arrival_date) return 'N/A'
-
       const date = new Date(this.car.car_arrival_date)
       return date.toLocaleDateString()
+    }
+  },
+  async mounted() {
+    // initFavorites is safe to call multiple times — it's a no-op after first run
+    await initFavorites()
+  },
+  methods: {
+    async handleFavorite() {
+      await toggleFavorite(this.car.car_id)
     }
   }
 }
@@ -93,6 +121,23 @@ export default {
   display: flex;
   flex-direction: column;
   flex-grow: 1;
+}
+
+.card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+fav-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2rem;
+  padding: 0 0 0 8px;
+  line-height: 1;
+  flex-shrink: 0;
 }
 
 .car-title {
