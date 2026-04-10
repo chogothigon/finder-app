@@ -93,7 +93,7 @@ passport.use(new GoogleStrategy({
   );
   
   app.get('/api/v1/auth/google/callback',
-    passport.authenqticate('google', { failureRedirect: '/login' }),
+    passport.authenticate('google', { failureRedirect: '/login' }),
     (req, res) => {
       res.redirect(process.env.CLIENT_ORIGIN || 'http://localhost:8080');
     }
@@ -113,7 +113,7 @@ passport.use(new GoogleStrategy({
   });
 
   //Favorites Routes
-  app.get('api/favorites', requireAuth, async (req, res) => {
+  app.get('/api/favorites', requireAuth, async (req, res) => {
     try {
       const result = await pool.query(
         'SELECT car_id FROM favorites WHERE user_id = $1',
