@@ -3,7 +3,7 @@
     <div class="field-group">
       <label for="make">Make</label>
       <select id="make" v-model="selectedMake">
-        <option disabled value="">Select</option>
+        <option value="">Select</option>
         <option 
         v-for="make in uniqueMakes" :key="make" :value="make">{{ make }}
         </option>
@@ -13,7 +13,7 @@
     <div class="field-group">
       <label for="model">Model</label>
       <select id="model" v-model="selectedModel">
-        <option disabled value="">Select</option>
+        <option value="">Select</option>
         <option 
         v-for="model in uniqueModels" :key="model" :value="model">{{ model }}
         </option>
@@ -77,6 +77,10 @@ export default {
 
       const years = data.map(car => car.car_year).filter(Boolean)
       this.uniqueYears = [...new Set(years)].sort((a, b) => b - a)
+
+      const models = data.map(car => car.car_model).filter(Boolean)
+      this.uniqueModels = [...new Set(models)].sort()
+
     } catch (err) {
       console.error('Error loading makes:', err)
     }
@@ -84,8 +88,10 @@ export default {
   watch: {
   selectedMake(newMake) {
     if (!newMake) {
-      this.uniqueModels = []
-      this.selectedModel = ''
+      const allModels = this.cars
+        .map(car => car.car_model)
+        .filter(Boolean)
+      this.uniqueModels = [...new Set(allModels)].sort()
       return
     }
 
@@ -95,9 +101,13 @@ export default {
       .filter(Boolean)
 
     this.uniqueModels = [...new Set(models)].sort()
-    this.selectedModel = ''
+
+    if (this.selectedModel && !this.uniqueModels.includes(this.selectedModel)) {
+      this.selectedModel = ''
+    }
   }
 },
+
 methods: {
   doSearch() {
     this.$emit('search', {
@@ -112,7 +122,7 @@ methods: {
 
 <style scoped>
 .search-bar {
-  width: 95%;
+  width: 95%; 
   margin: 20px auto;
   padding: 24px;
   border: 1px solid #d9d9d9;

@@ -60,7 +60,10 @@ export default {
       const matchesModel =
         !filters.model || car.car_model === filters.model
 
-      return matchesMake && matchesModel
+      const matchesYear =
+        !filters.year || car.car_year === filters.year
+
+      return matchesMake && matchesModel && matchesYear
     })
 
     this.currentlyVisible = 48
