@@ -1,6 +1,6 @@
 <template>
   <section>
-    <h2>Donate</h2>
+    <h2>Support Purple Team's endeavors!</h2>
   </section>
 </template>
 

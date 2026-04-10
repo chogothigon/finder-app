@@ -17,9 +17,8 @@
         <p><strong>Year:</strong> {{ randomCar.car_year }}</p>
         <p><strong>VIN:</strong> {{ randomCar.car_vin }}</p>
         <p><strong>Arrival Date:</strong> {{ formattedArrivalDate }}</p>
-        <p><strong>Source:</strong></p>
-
         <a
+          class="source-btn"
           :href="randomCar.car_source"
           target="_blank"
           rel="noopener noreferrer"
@@ -148,5 +147,22 @@ export default {
   background-color: #2c3e50;
   color: white;
   cursor: pointer;
+}
+
+.source-btn {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 12px 18px;
+  border-radius: 10px;
+  background-color: #f3f4f6;
+  color: #2c3e50;
+  text-decoration: none;
+  font-weight: 600;
+  border: 1px solid #d9d9d9;
+  cursor: pointer;
+}
+
+.source-btn:hover {
+  background-color: #e9ecef;
 }
 </style>

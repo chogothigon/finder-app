@@ -12,10 +12,20 @@
 
     <div class="field-group">
       <label for="model">Model</label>
-      <select id="model" v-model="selectedModel" :disabled="!selectedMake">
+      <select id="model" v-model="selectedModel">
         <option disabled value="">Select</option>
         <option 
         v-for="model in uniqueModels" :key="model" :value="model">{{ model }}
+        </option>
+      </select>
+    </div>
+
+    <div class="field-group">
+      <label for="year">Year</label>
+      <select id="year" v-model="selectedYear">
+        <option value="">Select</option>
+        <option
+        v-for="year in uniqueYears" :key="year" :value="year">{{ year }}
         </option>
       </select>
     </div>
@@ -41,8 +51,10 @@ export default {
       cars: [],
       uniqueMakes: [],
       uniqueModels: [],
+      uniqueYears: [],
       selectedMake: '',
-      selectedModel: ''
+      selectedModel: '',
+      selectedYear: ''
     }
   },
   
@@ -60,9 +72,11 @@ export default {
 
       const makes = data.map(car => car.car_make).filter(Boolean)
       console.log('makes:', makes)
-
       this.uniqueMakes = [...new Set(makes)].sort()
       console.log('uniqueMakes:', this.uniqueMakes)
+
+      const years = data.map(car => car.car_year).filter(Boolean)
+      this.uniqueYears = [...new Set(years)].sort((a, b) => b - a)
     } catch (err) {
       console.error('Error loading makes:', err)
     }
@@ -88,7 +102,8 @@ methods: {
   doSearch() {
     this.$emit('search', {
       make: this.selectedMake,
-      model: this.selectedModel
+      model: this.selectedModel,
+      year: this.selectedYear
     })
   }
 }
@@ -108,14 +123,15 @@ methods: {
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   gap: 30px;
 }
 
-.field-group {
+.field-group label {
   display: flex;
   align-items: center;
   gap: 10px;
+  width: 60px;
 }
 
 label {
@@ -131,7 +147,7 @@ select{
   border-radius: 10px;
   background-color: white;
   color: #2c3e50;
-  width: 200px;
+  width: 150px;
 }
 input {
   font-size: 1.1rem;
@@ -140,6 +156,6 @@ input {
   border-radius: 10px;
   background-color: white;
   color: #2c3e50;
-  width: 220px;
+  width: 150px;
 }
 </style>
