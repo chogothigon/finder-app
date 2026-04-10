@@ -181,15 +181,21 @@ app.get('/api/cars', async (req, res) => {
       SELECT
         c.*,
         ci.image_url
+        j.junkyard_city,
+        j.junkyard_state,
+        j.junkyard_zip
+        j.junkyard_name
       FROM car c
+      LEFT JOIN junkyard j 
+        ON c.junkyard_id = j.junkyard_id
       LEFT JOIN (
         SELECT DISTINCT ON (car_id)
-        car_id,
-        image_url
-      FROM car_image 
-      ORDER BY car_id, image_id
-  ) ci
-    ON c.car_id = ci.car_id 
+          car_id,
+          image_url
+        FROM car_image 
+        ORDER BY car_id, image_id
+      ) ci
+        ON c.car_id = ci.car_id 
     `);
     
     res.json(result.rows);

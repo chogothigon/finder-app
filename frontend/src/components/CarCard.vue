@@ -28,6 +28,9 @@
       <p class="car-year">Year: {{ car.car_year }}</p>
       <p class="car-vin">VIN: {{ car.car_vin }}</p>
       <p class="car-date">Arrival Date: {{ formattedArrivalDate }}</p>
+      <p class="car-location">
+        Location: {{ car.junkyard_city }}, {{ car.junkyard_state }}
+      </p>
  
       <a
         class="source-link"
@@ -166,4 +169,15 @@ fav-btn {
 .source-link:hover {
   text-decoration: underline;
 }
+
+.car-year,
+.car-vin,
+.car-date,
+.car-location {
+  margin: 6px 0;
+  color: #444;
+  font-size: 0.95rem;
+  word-break: break-word;
+}
+
 </style>
