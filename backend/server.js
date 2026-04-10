@@ -180,10 +180,10 @@ app.get('/api/cars', async (req, res) => {
       `
       SELECT
         c.*,
-        ci.image_url
+        ci.image_url,
         j.junkyard_city,
         j.junkyard_state,
-        j.junkyard_zip
+        j.junkyard_zip,
         j.junkyard_name
       FROM car c
       LEFT JOIN junkyard j 
