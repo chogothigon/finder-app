@@ -7,7 +7,7 @@
         <AboutCard
           name="Ryan"
           pic="../assets/ryan.jpg"
-          description="Description"
+          description="Your network security is my priority. My network? Ongoing research project."
           fun="Fun fact"
         />
         <AboutCard
