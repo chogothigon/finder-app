@@ -63,7 +63,10 @@ export default {
       const matchesYear =
         !filters.year || car.car_year === filters.year
 
-      return matchesMake && matchesModel && matchesYear
+      const matchesZip =
+      !filters.zip || String(car.junkyard_zip) === String(filters.zip)
+
+      return matchesMake && matchesModel && matchesYear && matchesZip
     })
 
     this.currentlyVisible = 48

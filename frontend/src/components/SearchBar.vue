@@ -10,6 +10,8 @@
       </select>
     </div>
 
+  
+
     <div class="field-group">
       <label for="model">Model</label>
       <select id="model" v-model="selectedModel">
@@ -33,7 +35,7 @@
 
     <div class="field-group">
       <label for="zip">ZIP</label>
-      <input type="text" id="zip">
+      <input type="text" id="zip" v-model="selectedZIP" maxlength="5" />
     </div>
 
     <button @click="doSearch">Search</button>
@@ -54,7 +56,8 @@ export default {
       uniqueYears: [],
       selectedMake: '',
       selectedModel: '',
-      selectedYear: ''
+      selectedYear: '',
+      selectedZIP: ''
     }
   },
   
@@ -113,7 +116,8 @@ methods: {
     this.$emit('search', {
       make: this.selectedMake,
       model: this.selectedModel,
-      year: this.selectedYear
+      year: this.selectedYear,
+      zip: this.selectedZIP
     })
   }
 }
