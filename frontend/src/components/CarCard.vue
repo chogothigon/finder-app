@@ -14,7 +14,7 @@
 
     <div class="card-content">
       <div class="card-header">
-        <h3 class="car-title">{{ car.car_make }} {{ car.car_model }}</h3>
+        <h3 class="car-title" @click="$emit('view-details', car)">{{ car.car_make }} {{ car.car_model }}</h3>
         <button
           class="fav-btn"
           @click.stop="handleFavorite"
@@ -55,6 +55,8 @@ export default {
       required: true
     }
   },
+  emits: ['view-details'],
+
   computed: {
     favorited() {
       return isFavorited(this.car.car_id)
@@ -133,7 +135,7 @@ export default {
   margin-bottom: 12px;
 }
 
-fav-btn {
+.fav-btn {
   background: none;
   border: none;
   cursor: pointer;
@@ -147,6 +149,11 @@ fav-btn {
   margin: 0 0 12px 0;
   font-size: 1.2rem;
   color: #2c3e50;
+  cursor: pointer;
+}
+
+.car-title:hover {
+  text-decoration: underline;
 }
 
 .car-year,
