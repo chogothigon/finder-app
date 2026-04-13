@@ -6,8 +6,8 @@
       <div class="team-cards">
         <AboutCard
           name="Ryan"
-          pic="/placeholder.jpg"
-          description="Description"
+          pic="../assets/ryan.jpg"
+          description="Your network security is my priority. My network? Ongoing research project."
           fun="Fun fact"
         />
         <AboutCard
