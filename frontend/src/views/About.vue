@@ -6,7 +6,7 @@
       <div class="team-cards">
         <AboutCard
           name="Ryan"
-          pic="/placeholder.jpg"
+          pic="../assets/ryan.jpg"
           description="Description"
           fun="Fun fact"
         />
