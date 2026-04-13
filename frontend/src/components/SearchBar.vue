@@ -35,8 +35,7 @@
 
     <div class="field-group">
       <label for="zip">ZIP</label>
-      <!--<input type="text" id="zip" v-model="selectedZIP" maxlength="5" />-->
-      <select id="zip"ZIP v-model="selectedZIP">
+      <select id="zip" v-model="selectedZIP">
         <option value="">Select</option>
         <option
         v-for="zip in uniqueZIPs" :key="zip" :value="zip">{{ zip }}
@@ -89,6 +88,9 @@ export default {
 
       const models = data.map(car => car.car_model).filter(Boolean)
       this.uniqueModels = [...new Set(models)].sort()
+
+      const zips = data.map(car => car.zip_code).filter(Boolean)
+      this.uniqueZIPs = [...new Set(zips)].sort()
 
     } catch (err) {
       console.error('Error loading makes:', err)
