@@ -47,7 +47,7 @@ const pool = new Pool({
 passport.use(new GoogleStrategy({
   clientID: process.env.GOOGLE_CLIENT_ID,
   clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-  callbackURL: '/auth/google/callback' || '/api/v1/auth/google/callback'
+  callbackURL: process.env.GOOGLE_CALLBACK_URL
 }, async (accessToken, refreshToken, profile, done) => {
   try {
     const email  = profile.emails?.[0]?.value
@@ -161,7 +161,7 @@ passport.use(new GoogleStrategy({
     const { car_ids } = req.body;
     if (!Array.isArray(car_ids) || !car_ids.length) return res.json({ ok: true });
     try {
-      const values = car_ids.map((_, i) => '($1, $$(i + 2))').join(', ');
+      const values = car_ids.map((_, i) => `($1, $${i + 2})`).join(', ');
       await pool.query(
         `INSERT INTO favorites (user_id, car_id) VALUES ${values} ON CONFLICT DO NOTHING`,
         [req.user.user_id, ...car_ids]
