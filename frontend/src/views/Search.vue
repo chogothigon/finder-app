@@ -6,7 +6,7 @@
     </div>
 
     <p v-else class="no-results">Sorry, no cars yet {{':('}}</p>
-
+ 
     <div
       class="load-more-wrapper"
       v-if="searchResults.length > currentlyVisible"

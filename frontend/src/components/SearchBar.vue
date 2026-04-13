@@ -35,7 +35,13 @@
 
     <div class="field-group">
       <label for="zip">ZIP</label>
-      <input type="text" id="zip" v-model="selectedZIP" maxlength="5" />
+      <!--<input type="text" id="zip" v-model="selectedZIP" maxlength="5" />-->
+      <select id="zip"ZIP v-model="selectedZIP">
+        <option value="">Select</option>
+        <option
+        v-for="zip in uniqueZIPs" :key="zip" :value="zip">{{ zip }}
+        </option>
+        </select>
     </div>
 
     <button @click="doSearch">Search</button>
