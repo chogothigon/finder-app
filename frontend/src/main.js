@@ -1,15 +1,12 @@
 import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
+import { createVuetify } from 'vuetify'
+import * as components from 'vuetify/components'
+import * as directives from 'vuetify/directives'
+import 'vuetify/styles'
+import '@mdi/font/css/materialdesignicons.css'
 
-<v-btn
-  href="/api/v1/auth/google"
-  color="primary"
-  size="large"
-  prepend-icon="mdi-google"
-  class="mt-4"
->
-  Sign in with Google
-</v-btn>
+const vuetify = createVuetify({ components, directives })
 
-createApp(App).use(router).mount('#app')
+createApp(App).use(router).use(vuetify).mount('#app')
