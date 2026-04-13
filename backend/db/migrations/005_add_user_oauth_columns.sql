@@ -1,0 +1,3 @@
+ALTER TABLE users
+  ADD COLUMN IF NOT EXISTS user_name   TEXT,
+  ADD COLUMN IF NOT EXISTS user_avatar TEXT;
