@@ -8,31 +8,31 @@
           name="Ryan"
           :pic="ryanPic"
           description="Your network security is my priority. My network? Ongoing research project."
-          fun="Fun fact"
+        
         />
         <AboutCard
           name="Reese"
           pic="/placeholder.jpg"
           description="Description"
-          fun="Fun fact"
+          
         />
         <AboutCard
           name="Kimball"
           pic="/placeholder.jpg"
           description="Description"
-          fun="Fun fact"
+          
         />
         <AboutCard
           name="Maya"
           pic="/placeholder.jpg"
           description="Description"
-          fun="Fun fact"
+          
         />
         <AboutCard
           name="Sam"
           pic="/placeholder.jpg"
           description="Description"
-          fun="Fun fact"
+          
         />
       </div>
     </div>

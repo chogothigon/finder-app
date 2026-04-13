@@ -59,6 +59,7 @@ export default {
       uniqueMakes: [],
       uniqueModels: [],
       uniqueYears: [],
+      uniqueZIPs: [],
       selectedMake: '',
       selectedModel: '',
       selectedYear: '',
