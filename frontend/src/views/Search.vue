@@ -49,7 +49,18 @@
               {{ selectedCar.junkyard_zip || '' }}
             </p>
 
+            <p><strong>Year:</strong> {{ selectedCar.car_year || 'Unknown' }}</p>
+
             <p><strong>VIN:</strong> {{ selectedCar.car_vin || 'Unknown' }}</p>
+
+            <p>
+              <strong>Location:</strong>
+              {{ randomCar.junkyard_city || 'Unknown' }},
+              {{ randomCar.junkyard_state || 'Unknown' }}
+              {{ randomCar.junkyard_zip || '' }}
+            </p>
+
+            <p><strong>Engine Data:</strong> {{ randomCar.car_engine_data || 'Unknown' }}</p>
 
             <p>
               <strong>Source: </strong>

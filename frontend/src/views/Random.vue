@@ -26,7 +26,6 @@
             {{ randomCar.junkyard_state || 'Unknown' }}
             {{ randomCar.junkyard_zip || '' }}
           </p>
-          <p><strong>Junkyard:</strong> {{ randomCar.junkyard_name || 'Unknown' }}</p>
           <p><strong>Engine Data:</strong> {{ randomCar.car_engine_data || 'Unknown' }}</p>
 
           <p>
@@ -48,16 +47,16 @@
           Show Another Random Car
         </button>
 
-        <button
-          class="fav-btn"
-          @click.stop="handleFavorite"
-          :title="favorited ? 'Remove from favorites' : 'Add to favorites'"
-        >
-          <span v-if="favorited">❤️</span>
-          <span v-else>🤍</span>
-        </button>
+          <button
+            class="fav-btn"
+            @click.stop="handleFavorite"
+            :title="favorited ? 'Remove from favorites' : 'Add to favorites'"
+          >
+            <span v-if="favorited">❤️</span>
+            <span v-else>🤍</span>
+          </button>
+        </div>
       </div>
-    </div>
 
     <p v-else>Loading random car...</p>
 
