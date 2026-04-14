@@ -1,5 +1,6 @@
 <template>
   <div class="search-bar">
+    <div class="main-fields"></div>
     <div class="field-group">
       <label for="make">Make</label>
       <select id="make" v-model="selectedMake">
@@ -42,31 +43,37 @@
     </div>
 
     <button @click="doSearch">Search</button>
+  </div>
 
-    <button @click="isAdvanced = !isAdvanced" class="advanced-toggle">
-      {{ isAdvanced ? 'Hide' : 'Show' }} Advanced
-    </button>
+    <div class="advanced-wrap">
+      <button @click="isAdvanced = !isAdvanced" class="advanced-toggle">
+        Advanced {{ isAdvanced ? '▴' : '▾' }}
+      </button>
 
-    <div v-if="isAdvanced" class="advanced-fields">
-      <div class="field-group">
-        <label for="state">State</label>
-        <select id="state" v-model="selectedState">
-          <option value="">State</option>
-          <option v-for="state in uniqueStates" :key="state" :value="state">{{ state }}</option>
-        </select>
-      </div>
+      <div v-if="isAdvanced" class="advanced-panel">
+        <div class="advanced-title">Advanced</div>
 
-      <div class="field-group">
-        <label for="sort">Sort by</label>
-        <select id="sort" v-model="sortOrder">
-          <option value="newest">Arrival: Newest</option>
-          <option value="oldest">Arrival: Oldest</option>
-          <option value="year-newest">Year: Newest</option>
-          <option value="year-oldest">Year: Oldest</option>
-        </select>
+        <div class="advanced-fields">
+          <div class="field-group compact">
+            <label for="state">State</label>
+            <select id="state" v-model="selectedState">
+              <option value="">Any</option>
+              <option v-for="state in uniqueStates" :key="state" :value="state">{{ state }}</option>
+            </select>
+          </div>
+
+          <div class="field-group compact">
+            <label for="sort">Sort</label>
+            <select id="sort" v-model="sortOrder">
+              <option value="newest">Arrival: Newest</option>
+              <option value="oldest">Arrival: Oldest</option>
+              <option value="year-newest">Year: Newest</option>
+              <option value="year-oldest">Year: Oldest</option>
+            </select>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
 
   
 </template>
@@ -206,24 +213,28 @@ methods: {
 .search-bar {
   width: 95%; 
   margin: 20px auto;
-  padding: 32px;
+  padding: 28px 32px;
   border: 1px solid #d9d9d9;
   border-radius: 16px;
   background-color: white;
   box-sizing: border-box;
+}
 
+.main-fields {
   display: flex;
-  justify-content: center;
-  align-items: center;
   flex-wrap: wrap;
-  gap: 40px;
+  gap: 24px;
+  align-items: end;
+}
+
+.main-fields button {
+  align-self: end;
 }
 
 .field-group label {
   display: flex;
-  align-items: center;
-  gap: 10px;
-  width: 60px;
+  flex-direction: column;
+  gap: 8px;
 }
 
 label {
@@ -232,36 +243,76 @@ label {
   color: #2c3e50;
 }
 
-select{
-  font-size: 1.1rem;
+select, input{
+  font-size: 1.05rem;
   padding: 10px 14px;
   border: 1px solid #d9d9d9;
   border-radius: 10px;
   background-color: white;
   color: #2c3e50;
-  width: 150px;
+  width: 170px;
+  box-sizing: border-box;
 }
-.advanced-toggle {
+
+button {
   font-size: 1rem;
   padding: 10px 16px;
   border: 1px solid #d9d9d9;
   border-radius: 10px;
-  background-color: #f8f9fa;
-  color: #2c3e50;
+  background-color: #2c3e50;
+  color: white;
   cursor: pointer;
-  margin-left: 10px;
+}
+
+.advanced-wrap {
+  margin-top: 16px;
+}
+
+.advanced-toggle {
+  font-size: 0.92rem;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: #5c6773;
+  cursor: pointer;
 }
 
 .advanced-toggle:hover {
-  background-color: #e9ecef;
+  text-decoration: underline;
+}
+
+.advanced-panel {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid #ececec;
+}
+
+.advanced-title {
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #7a8694;
+  margin-bottom: 10px;
 }
 
 .advanced-fields {
   display: flex;
-  gap: 40px;
+  gap: 16px;
   flex-wrap: wrap;
-  margin-top: 20px;
-  width: 100%;
-  justify-content: center;
+  align-items: end;
+}
+
+.field-group.compact label {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #5c6773;
+}
+
+.field-group.compact select,
+.field-group.compact input {
+  font-size: 0.92rem;
+  padding: 8px 12px;
+  width: 160px;
 }
 </style>
