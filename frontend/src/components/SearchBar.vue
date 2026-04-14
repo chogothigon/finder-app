@@ -35,7 +35,7 @@
 
     <div class="field-group">
       <label for="zip">ZIP</label>
-      <input type="text" id="zip" v-model="selectedZIP" list="zip-list" placeholder="Enter or select ZIP">
+      <input type="text" id="zip" v-model="selectedZIP" list="zip-list" placeholder="Enter">
       <datalist id="zip-list">
         <option v-for="zip in uniqueZIPs" :key="zip" :value="zip">{{ zip }}</option>
       </datalist>
@@ -102,6 +102,12 @@ export default {
         .map(car => car.car_model)
         .filter(Boolean)
       this.uniqueModels = [...new Set(allModels)].sort()
+
+      const allYears = this.cars
+        .map(car => car.car_year)
+        .filter(Boolean)
+      this.uniqueYears = [...new Set(allYears)].sort((a, b) => b - a)
+
       return
     }
 
@@ -109,11 +115,44 @@ export default {
       .filter(car => car.car_make === newMake)
       .map(car => car.car_model)
       .filter(Boolean)
-
     this.uniqueModels = [...new Set(models)].sort()
+
+    const years = this.cars
+      .filter(car => car.car_make === newMake)
+      .map(car => car.car_year)
+      .filter(Boolean)
+    this.uniqueYears = [...new Set(years)].sort((a, b) => b - a)
 
     if (this.selectedModel && !this.uniqueModels.includes(this.selectedModel)) {
       this.selectedModel = ''
+    }
+
+    if (this.selectedYear && !this.uniqueYears.includes(parseInt(this.selectedYear))) {
+      this.selectedYear = ''
+    }
+  },
+
+  selectedModel(newModel) {
+    if (!this.selectedMake) return
+
+    if (!newModel) {
+      const years = this.cars
+        .filter(car => car.car_make === this.selectedMake)
+        .map(car => car.car_year)
+        .filter(Boolean)
+      this.uniqueYears = [...new Set(years)].sort((a, b) => b - a)
+
+      return
+    }
+
+    const years = this.cars
+      .filter(car => car.car_make === this.selectedMake && car.car_model === newModel)
+      .map(car => car.car_year)
+      .filter(Boolean)
+    this.uniqueYears = [...new Set(years)].sort((a, b) => b - a)
+
+    if (this.selectedYear && !this.uniqueYears.includes(parseInt(this.selectedYear))) {
+      this.selectedYear = ''
     }
   }
 },

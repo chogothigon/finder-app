@@ -25,12 +25,12 @@
         </button>
       </div>
  
+      <p class="car-date">Arrival Date: {{ formattedArrivalDate }}</p>
+      <p class="car-location">Location: {{ car.junkyard_city }}, {{ car.junkyard_state }}</p>
       <p class="car-year">Year: {{ car.car_year }}</p>
       <p class="car-vin">VIN: {{ car.car_vin }}</p>
-      <p class="car-date">Arrival Date: {{ formattedArrivalDate }}</p>
-      <p class="car-location">
-        Location: {{ car.junkyard_city }}, {{ car.junkyard_state }}
-      </p>
+      
+      
  
       <a
         class="source-link"

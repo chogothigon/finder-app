@@ -30,7 +30,7 @@
           <p><strong>Engine Data:</strong> {{ randomCar.car_engine_data || 'Unknown' }}</p>
 
           <p>
-            <strong>Source:</strong>
+            <strong>Source: </strong>
             <a
               v-if="randomCar.car_source"
               :href="randomCar.car_source"
@@ -42,20 +42,20 @@
             </a>
             <span v-else>Unknown</span>
           </p>
+        </div>
 
         <button class="random-btn" @click="pickRandomCar">
           Show Another Random Car
         </button>
 
-          <button
-            class="fav-btn"
-            @click.stop="handleFavorite"
-            :title="favorited ? 'Remove from favorites' : 'Add to favorites'"
-          >
-            <span v-if="favorited">❤️</span>
-            <span v-else>🤍</span>
-          </button>
-        </div>
+        <button
+          class="fav-btn"
+          @click.stop="handleFavorite"
+          :title="favorited ? 'Remove from favorites' : 'Add to favorites'"
+        >
+          <span v-if="favorited">❤️</span>
+          <span v-else>🤍</span>
+        </button>
       </div>
     </div>
 

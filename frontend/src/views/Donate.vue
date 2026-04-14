@@ -28,7 +28,7 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 70vh;
+  height: 40vh;
   margin-top: 20px;
 }
 

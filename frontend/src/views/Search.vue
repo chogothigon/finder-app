@@ -40,20 +40,19 @@
               {{ selectedCar.car_year }} {{ selectedCar.car_make }} {{ selectedCar.car_model }}
             </h2>
 
-            <p><strong>VIN:</strong> {{ selectedCar.car_vin || 'Unknown' }}</p>
             <p><strong>Arrival Date:</strong> {{ formattedModalArrivalDate }}</p>
+            
             <p>
               <strong>Location:</strong>
               {{ selectedCar.junkyard_city || 'Unknown' }},
               {{ selectedCar.junkyard_state || 'Unknown' }}
               {{ selectedCar.junkyard_zip || '' }}
             </p>
-            <p><strong>Junkyard:</strong> {{ selectedCar.junkyard_name || 'Unknown' }}</p>
-            <p><strong>Engine Data:</strong> {{ selectedCar.car_engine_data || 'Unknown' }}</p>
-            <p><strong>Listing Active:</strong> {{ selectedCar.car_active ? 'Yes' : 'No' }}</p>
+
+            <p><strong>VIN:</strong> {{ selectedCar.car_vin || 'Unknown' }}</p>
 
             <p>
-              <strong>Source:</strong>
+              <strong>Source: </strong>
               <a
                 v-if="selectedCar.car_source"
                 :href="selectedCar.car_source"
