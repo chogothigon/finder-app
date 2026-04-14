@@ -1,18 +1,16 @@
 <template>
   <div class="search-bar">
-    <div class="main-fields"></div>
-    <div class="field-group">
-      <label for="make">Make</label>
-      <select id="make" v-model="selectedMake">
-        <option value="">Select</option>
-        <option 
-        v-for="make in uniqueMakes" :key="make" :value="make">{{ make }}
-        </option>
-      </select>
-    </div>
-
-  
-
+    <div class="main-fields">
+      <div class="field-group">
+        <label for="make">Make</label>
+        <select id="make" v-model="selectedMake">
+          <option value="">Select</option>
+          <option 
+          v-for="make in uniqueMakes" :key="make" :value="make">{{ make }}
+          </option>
+        </select>
+      </div>
+    
     <div class="field-group">
       <label for="model">Model</label>
       <select id="model" v-model="selectedModel">
@@ -43,7 +41,7 @@
     </div>
 
     <button @click="doSearch">Search</button>
-  </div>
+    </div>
 
     <div class="advanced-wrap">
       <button @click="isAdvanced = !isAdvanced" class="advanced-toggle">
@@ -51,31 +49,55 @@
       </button>
 
       <div v-if="isAdvanced" class="advanced-panel">
-        <div class="advanced-title">Advanced</div>
 
         <div class="advanced-fields">
-          <div class="field-group compact">
-            <label for="state">State</label>
-            <select id="state" v-model="selectedState">
-              <option value="">Any</option>
-              <option v-for="state in uniqueStates" :key="state" :value="state">{{ state }}</option>
-            </select>
-          </div>
 
-          <div class="field-group compact">
-            <label for="sort">Sort</label>
-            <select id="sort" v-model="sortOrder">
-              <option value="newest">Arrival: Newest</option>
-              <option value="oldest">Arrival: Oldest</option>
-              <option value="year-newest">Year: Newest</option>
-              <option value="year-oldest">Year: Oldest</option>
-            </select>
+          <div class="advanced-inline">
+            <span class="advanced-label">Advanced:</span>
+
+            <div class="sort-toggles">
+              <button
+                type="button"
+                class="sort-toggle"
+                :class="{ active: sortOrder === 'newest' }"
+                @click="sortOrder = 'newest'"
+              >
+                Newest Arrival
+              </button>
+
+              <button
+                type="button"
+                class="sort-toggle"
+                :class="{ active: sortOrder === 'oldest' }"
+                @click="sortOrder = 'oldest'"
+              >
+                Oldest Arrival
+              </button>
+
+              <button
+                type="button"
+                class="sort-toggle"
+                :class="{ active: sortOrder === 'year-newest' }"
+                @click="sortOrder = 'year-newest'"
+              >
+                Newest Year
+              </button>
+
+              <button
+                type="button"
+                class="sort-toggle"
+                :class="{ active: sortOrder === 'year-oldest' }"
+                @click="sortOrder = 'year-oldest'"
+              >
+                Oldest Year
+              </button>
+            </div>
           </div>
         </div>
       </div>
     </div>
 
-  
+  </div>
 </template>
 
 <script>
@@ -88,12 +110,10 @@ export default {
       uniqueModels: [],
       uniqueYears: [],
       uniqueZIPs: [],
-      uniqueStates: [],
       selectedMake: '',
       selectedModel: '',
       selectedYear: '',
       selectedZIP: '',
-      selectedState: '',
       sortOrder: 'newest',
       isAdvanced: false
     }
@@ -124,9 +144,6 @@ export default {
 
       const zips = data.map(car => car.junkyard_zip).filter(Boolean)
       this.uniqueZIPs = [...new Set(zips)].sort()
-
-      const states = data.map(car => car.junkyard_state).filter(Boolean)
-      this.uniqueStates = [...new Set(states)].sort()
 
     } catch (err) {
       console.error('Error loading makes:', err)
@@ -201,7 +218,6 @@ methods: {
       model: this.selectedModel,
       year: this.selectedYear,
       zip: this.selectedZIP,
-      state: this.selectedState,
       sort: this.sortOrder
     })
   }
@@ -224,14 +240,15 @@ methods: {
   display: flex;
   flex-wrap: wrap;
   gap: 24px;
-  align-items: end;
+  align-items: flex-end;
+  justify-content: center;
 }
 
 .main-fields button {
-  align-self: end;
+  align-self: flex-end;
 }
 
-.field-group label {
+.field-group {
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -265,7 +282,12 @@ button {
 }
 
 .advanced-wrap {
-  margin-top: 16px;
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 1px solid #ececec;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .advanced-toggle {
@@ -283,36 +305,46 @@ button {
 
 .advanced-panel {
   margin-top: 10px;
-  padding-top: 10px;
-  border-top: 1px solid #ececec;
 }
 
-.advanced-title {
-  font-size: 0.82rem;
-  font-weight: 600;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  color: #7a8694;
-  margin-bottom: 10px;
-}
+
 
 .advanced-fields {
-  display: flex;
-  gap: 16px;
-  flex-wrap: wrap;
-  align-items: end;
+  margin-top: 10px;
 }
 
-.field-group.compact label {
-  font-size: 0.9rem;
-  font-weight: 500;
+.advanced-inline {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.advanced-label {
+  font-size: 0.95rem;
+  font-weight: 600;
   color: #5c6773;
 }
 
-.field-group.compact select,
-.field-group.compact input {
-  font-size: 0.92rem;
+.sort-toggles {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.sort-toggle {
+  font-size: 0.9rem;
   padding: 8px 12px;
-  width: 160px;
+  border: 1px solid #d9d9d9;
+  border-radius: 999px;
+  background: white;
+  color: #2c3e50;
+  cursor: pointer;
+}
+
+.sort-toggle.active {
+  background: #2c3e50;
+  color: white;
+  border-color: #2c3e50;
 }
 </style>
