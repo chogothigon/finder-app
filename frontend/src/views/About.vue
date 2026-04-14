@@ -30,8 +30,8 @@
         />
         <AboutCard
           name="Sam"
-          pic="/placeholder.jpg"
-          description="Description"
+          :pic="samPic"
+          description="Interested in malware research and cyber threat intelligence"
           
         />
       </div>
@@ -42,6 +42,7 @@
 <script>
 import AboutCard from '@/components/AboutCard.vue';
 import ryanPic from '@/assets/ryan.jpg';
+import samPic from '@/assets/sam.png';
 import mayaPic from '@/assets/maya.jpg';
 
 export default {
@@ -50,6 +51,7 @@ export default {
   data() {
     return {
       ryanPic,
+      samPic,
       mayaPic
     }
   }
