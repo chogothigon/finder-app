@@ -55,12 +55,12 @@
 
             <p>
               <strong>Location:</strong>
-              {{ randomCar.junkyard_city || 'Unknown' }},
-              {{ randomCar.junkyard_state || 'Unknown' }}
-              {{ randomCar.junkyard_zip || '' }}
+              {{ selectedCar.junkyard_city || 'Unknown' }},
+              {{ selectedCar.junkyard_state || 'Unknown' }}
+              {{ selectedCar.junkyard_zip || '' }}
             </p>
 
-            <p><strong>Engine Data:</strong> {{ randomCar.car_engine_data || 'Unknown' }}</p>
+            <p><strong>Engine Data:</strong> {{ selectedCar.car_engine_data || 'Unknown' }}</p>
 
             <p>
               <strong>Source: </strong>
