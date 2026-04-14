@@ -136,8 +136,22 @@ export default {
       const matchesZip =
       !filters.zip || String(car.junkyard_zip) === String(filters.zip)
 
-      return matchesMake && matchesModel && matchesYear && matchesZip
+      const matchesState =
+        !filters.state || car.junkyard_state === filters.state
+
+      return matchesMake && matchesModel && matchesYear && matchesZip && matchesState
     })
+
+    // Sort the results
+    if (filters.sort === 'newest') {
+      this.searchResults.sort((a, b) => new Date(b.car_arrival_date) - new Date(a.car_arrival_date))
+    } else if (filters.sort === 'oldest') {
+      this.searchResults.sort((a, b) => new Date(a.car_arrival_date) - new Date(b.car_arrival_date))
+    } else if (filters.sort === 'year-newest') {
+      this.searchResults.sort((a, b) => b.car_year - a.car_year)
+    } else if (filters.sort === 'year-oldest') {
+      this.searchResults.sort((a, b) => a.car_year - b.car_year)
+    }
 
     this.currentlyVisible = 48
 

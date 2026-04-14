@@ -41,20 +41,22 @@
             </a>
             <span v-else>Unknown</span>
           </p>
+
+          <div class="button-group">
+            <button class="random-btn" @click="pickRandomCar">
+              Show Another Random Car
+            </button>
+
+            <button
+              class="fav-btn"
+              @click.stop="handleFavorite"
+              :title="favorited ? 'Remove from favorites' : 'Add to favorites'"
+            >
+              <span v-if="favorited">❤️</span>
+              <span v-else>🤍</span>
+            </button>
+          </div>
         </div>
-
-        <button class="random-btn" @click="pickRandomCar">
-          Show Another Random Car
-        </button>
-
-          <button
-            class="fav-btn"
-            @click.stop="handleFavorite"
-            :title="favorited ? 'Remove from favorites' : 'Add to favorites'"
-          >
-            <span v-if="favorited">❤️</span>
-            <span v-else>🤍</span>
-          </button>
         </div>
       </div>
 

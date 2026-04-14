@@ -43,7 +43,29 @@
 
     <button @click="doSearch">Search</button>
 
-  </div>
+    <button @click="isAdvanced = !isAdvanced" class="advanced-toggle">
+      {{ isAdvanced ? 'Hide' : 'Show' }} Advanced
+    </button>
+
+    <div v-if="isAdvanced" class="advanced-fields">
+      <div class="field-group">
+        <label for="state">State</label>
+        <select id="state" v-model="selectedState">
+          <option value="">State</option>
+          <option v-for="state in uniqueStates" :key="state" :value="state">{{ state }}</option>
+        </select>
+      </div>
+
+      <div class="field-group">
+        <label for="sort">Sort by</label>
+        <select id="sort" v-model="sortOrder">
+          <option value="newest">Arrival: Newest</option>
+          <option value="oldest">Arrival: Oldest</option>
+          <option value="year-newest">Year: Newest</option>
+          <option value="year-oldest">Year: Oldest</option>
+        </select>
+      </div>
+    </div>
 
   
 </template>
@@ -58,10 +80,14 @@ export default {
       uniqueModels: [],
       uniqueYears: [],
       uniqueZIPs: [],
+      uniqueStates: [],
       selectedMake: '',
       selectedModel: '',
       selectedYear: '',
-      selectedZIP: ''
+      selectedZIP: '',
+      selectedState: '',
+      sortOrder: 'newest',
+      isAdvanced: false
     }
   },
   
@@ -90,6 +116,9 @@ export default {
 
       const zips = data.map(car => car.junkyard_zip).filter(Boolean)
       this.uniqueZIPs = [...new Set(zips)].sort()
+
+      const states = data.map(car => car.junkyard_state).filter(Boolean)
+      this.uniqueStates = [...new Set(states)].sort()
 
     } catch (err) {
       console.error('Error loading makes:', err)
@@ -163,7 +192,9 @@ methods: {
       make: this.selectedMake,
       model: this.selectedModel,
       year: this.selectedYear,
-      zip: this.selectedZIP
+      zip: this.selectedZIP,
+      state: this.selectedState,
+      sort: this.sortOrder
     })
   }
 }
@@ -174,7 +205,7 @@ methods: {
 .search-bar {
   width: 95%; 
   margin: 20px auto;
-  padding: 24px;
+  padding: 32px;
   border: 1px solid #d9d9d9;
   border-radius: 16px;
   background-color: white;
@@ -183,8 +214,8 @@ methods: {
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-wrap: nowrap;
-  gap: 30px;
+  flex-wrap: wrap;
+  gap: 40px;
 }
 
 .field-group label {
@@ -209,13 +240,27 @@ select{
   color: #2c3e50;
   width: 150px;
 }
-input {
-  font-size: 1.1rem;
-  padding: 10px 14px;
+.advanced-toggle {
+  font-size: 1rem;
+  padding: 10px 16px;
   border: 1px solid #d9d9d9;
   border-radius: 10px;
-  background-color: white;
+  background-color: #f8f9fa;
   color: #2c3e50;
-  width: 150px;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.advanced-toggle:hover {
+  background-color: #e9ecef;
+}
+
+.advanced-fields {
+  display: flex;
+  gap: 40px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+  width: 100%;
+  justify-content: center;
 }
 </style>
