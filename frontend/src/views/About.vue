@@ -24,8 +24,8 @@
         />
         <AboutCard
           name="Maya"
-          pic="/placeholder.jpg"
-          description="Description"
+          :pic="mayaPic"
+          description="I like working on things that make a difference!"
           
         />
         <AboutCard
@@ -42,13 +42,15 @@
 <script>
 import AboutCard from '@/components/AboutCard.vue';
 import ryanPic from '@/assets/ryan.jpg';
+import mayaPic from '@/assets/maya.jpg';
 
 export default {
   name: 'AboutView',
   components: {AboutCard},
   data() {
     return {
-      ryanPic
+      ryanPic,
+      mayaPic
     }
   }
 }

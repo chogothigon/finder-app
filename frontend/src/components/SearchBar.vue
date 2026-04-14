@@ -35,12 +35,10 @@
 
     <div class="field-group">
       <label for="zip">ZIP</label>
-      <select id="zip" v-model="selectedZIP">
-        <option value="">Select</option>
-        <option
-        v-for="zip in uniqueZIPs" :key="zip" :value="zip">{{ zip }}
-        </option>
-        </select>
+      <input type="text" id="zip" v-model="selectedZIP" list="zip-list" placeholder="Enter or select ZIP">
+      <datalist id="zip-list">
+        <option v-for="zip in uniqueZIPs" :key="zip" :value="zip">{{ zip }}</option>
+      </datalist>
     </div>
 
     <button @click="doSearch">Search</button>
@@ -90,7 +88,7 @@ export default {
       const models = data.map(car => car.car_model).filter(Boolean)
       this.uniqueModels = [...new Set(models)].sort()
 
-      const zips = data.map(car => car.zip_code).filter(Boolean)
+      const zips = data.map(car => car.junkyard_zip).filter(Boolean)
       this.uniqueZIPs = [...new Set(zips)].sort()
 
     } catch (err) {

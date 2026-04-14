@@ -1,43 +1,61 @@
 <template>
   <section class="random-view">
     <div v-if="randomCar" class="random-card">
-      <div class="image-wrapper">
-        <img
-          v-if="randomCar.image_url && !imageFailed"
-          :src="randomCar.image_url"
-          alt="Random car image"
-          class="car-image"
-          @error="imageFailed = true"
-        />
-        <div v-else class="image-placeholder">No Image</div>
-      </div>
+      <div class="random-layout">
+        <div class="random-image-wrapper">
+          <img
+            v-if="randomCar.image_url && !imageFailed"
+            :src="randomCar.image_url"
+            alt="Random car image"
+            class="car-image"
+            @error="imageFailed = true"
+          />
+          <div v-else class="image-placeholder">No Image</div>
+        </div>
 
-      <div class="card-content">
-        <h3>{{ randomCar.car_make }} {{ randomCar.car_model }}</h3>
-        <p><strong>Year:</strong> {{ randomCar.car_year }}</p>
-        <p><strong>VIN:</strong> {{ randomCar.car_vin }}</p>
-        <p><strong>Arrival Date:</strong> {{ formattedArrivalDate }}</p>
-        <a
-          class="source-btn"
-          :href="randomCar.car_source"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          View Source
-        </a>
+        <div class="random-details">
+          <h3 class="random-title">
+            {{ randomCar.car_year }} {{ randomCar.car_make }} {{ randomCar.car_model }}
+          </h3>
+
+          <p><strong>VIN:</strong> {{ randomCar.car_vin }}</p>
+          <p><strong>Arrival Date:</strong> {{ formattedArrivalDate }}</p>
+          <p>
+            <strong>Location:</strong>
+            {{ randomCar.junkyard_city || 'Unknown' }},
+            {{ randomCar.junkyard_state || 'Unknown' }}
+            {{ randomCar.junkyard_zip || '' }}
+          </p>
+          <p><strong>Junkyard:</strong> {{ randomCar.junkyard_name || 'Unknown' }}</p>
+          <p><strong>Engine Data:</strong> {{ randomCar.car_engine_data || 'Unknown' }}</p>
+
+          <p>
+            <strong>Source:</strong>
+            <a
+              v-if="randomCar.car_source"
+              :href="randomCar.car_source"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="source-link"
+            >
+              {{ randomCar.junkyard_name || 'View Listing' }}
+            </a>
+            <span v-else>Unknown</span>
+          </p>
 
         <button class="random-btn" @click="pickRandomCar">
           Show Another Random Car
         </button>
 
-        <button
-          class="fav-btn"
-          @click.stop="handleFavorite"
-          :title="favorited ? 'Remove from favorites' : 'Add to favorites'"
-        >
-          <span v-if="favorited">❤️</span>
-          <span v-else>🤍</span>
-        </button>
+          <button
+            class="fav-btn"
+            @click.stop="handleFavorite"
+            :title="favorited ? 'Remove from favorites' : 'Add to favorites'"
+          >
+            <span v-if="favorited">❤️</span>
+            <span v-else>🤍</span>
+          </button>
+        </div>
       </div>
     </div>
 
@@ -91,20 +109,31 @@ export default {
 }
 
 .random-card {
-  max-width: 700px;
+  max-width: 900px;
   margin: 0 auto;
   border: 1px solid #d9d9d9;
   border-radius: 18px;
   overflow: hidden;
   background: white;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+  padding: 28px;
+  box-sizing: border-box;
 }
 
-.image-wrapper {
-  width: 100%;
-  height: 320px;
+.random-layout {
+  display: flex;
+  gap: 28px;
+  flex-wrap: wrap;
+  align-items: flex-start;
+}
+
+.random-image-wrapper {
+  width: 360px;
+  max-width: 100%;
+  height: 240px;
   background: #f2f2f2;
   overflow: hidden;
+  border-radius: 14px;
 }
 
 .car-image {
@@ -112,6 +141,7 @@ export default {
   height: 100%;
   object-fit: cover;
   display: block;
+  border-radius: 14px;
 }
 
 .image-placeholder {
@@ -122,21 +152,25 @@ export default {
   justify-content: center;
   color: #777;
   font-size: 1.2rem;
+  border-radius: 14px;
 }
 
-.card-content {
-  padding: 24px;
+.random-details {
+  flex: 1;
+  min-width: 260px;
 }
 
-.card-content h3 {
+.random-title {
   margin-top: 0;
-  font-size: 2rem;
+  margin-bottom: 20px;
   color: #2c3e50;
 }
 
-.card-content p {
+.random-details p {
   margin: 10px 0;
-  font-size: 1.05rem;
+  color: #444;
+  font-size: 1rem;
+  word-break: break-word;
 }
 
 .random-btn {
@@ -149,20 +183,23 @@ export default {
   cursor: pointer;
 }
 
-.source-btn {
-  display: inline-block;
-  margin-top: 20px;
-  padding: 12px 18px;
-  border-radius: 10px;
-  background-color: #f3f4f6;
+.source-link {
   color: #2c3e50;
-  text-decoration: none;
   font-weight: 600;
-  border: 1px solid #d9d9d9;
-  cursor: pointer;
+  text-decoration: none;
 }
 
-.source-btn:hover {
-  background-color: #e9ecef;
+.source-link:hover {
+  text-decoration: underline;
+}
+
+.fav-btn {
+  margin-left: 10px;
+  padding: 12px 18px;
+  border: none;
+  border-radius: 10px;
+  background-color: #f3f4f6;
+  cursor: pointer;
+  font-size: 1rem;
 }
 </style>
