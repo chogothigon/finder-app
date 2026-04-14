@@ -108,7 +108,7 @@ export default {
       if (!this.selectedCar?.car_arrival_date) return 'N/A'
       const date = new Date(this.selectedCar.car_arrival_date)
       return date.toLocaleDateString()
-    },
+    }
   },
 
   async mounted() {
@@ -157,7 +157,7 @@ export default {
     this.currentlyVisible += 48
   }
 }
-
+}
 </script>
 
 <style scoped>
