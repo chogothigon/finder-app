@@ -157,7 +157,7 @@ export default {
     this.currentlyVisible += 48
   }
 }
-}
+
 </script>
 
 <style scoped>
