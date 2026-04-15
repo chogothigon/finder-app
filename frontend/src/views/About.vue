@@ -13,7 +13,7 @@
         <AboutCard
           name="Reese"
           pic="/placeholder.jpg"
-          description="Description"
+          description="I like working on fun cybersecurity projects!"
           
         />
         <AboutCard
