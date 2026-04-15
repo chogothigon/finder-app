@@ -7,7 +7,6 @@
     <div class="card-content">
       <h3 class="name">{{ name }}</h3>
       <p class="description">{{ description }}</p>
-      <p class="fun"><strong>Fun Fact:</strong> {{ funFact }}</p>
     </div>
   </div>
 </template>
@@ -28,10 +27,7 @@ export default {
       type: String,
       required: true
     },
-    funFact: {
-      type: String,
-      required: true
-    }
+ 
   }
 }
 </script>
@@ -75,9 +71,5 @@ export default {
   line-height: 1.4;
 }
 
-.fun-fact {
-  margin: 0;
-  font-style: italic;
-  color: #555;
-}
+
 </style>
