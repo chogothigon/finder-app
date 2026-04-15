@@ -18,7 +18,7 @@
         />
         <AboutCard
           name="Kimball"
-          :pic="defaultPic"
+          pic="/placeholder.jpg"
           description="I love cybersecurity!"
           
         />
@@ -44,7 +44,6 @@ import AboutCard from '@/components/AboutCard.vue';
 import ryanPic from '@/assets/ryan.jpg';
 import samPic from '@/assets/sam.png';
 import mayaPic from '@/assets/maya.jpg';
-import defaultPic from '@/assets/defaultPic.jpg';
 
 export default {
   name: 'AboutView',
