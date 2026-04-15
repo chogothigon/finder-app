@@ -44,7 +44,7 @@ import AboutCard from '@/components/AboutCard.vue';
 import ryanPic from '@/assets/ryan.jpg';
 import samPic from '@/assets/sam.png';
 import mayaPic from '@/assets/maya.jpg';
-import defaultPic from '@/assets/placeholder.jpg';
+import defaultPic from '@/assets/defaultPic.jpg';
 
 export default {
   name: 'AboutView',
