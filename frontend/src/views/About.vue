@@ -12,14 +12,14 @@
         />
         <AboutCard
           name="Reese"
-          pic="/placeholder.jpg"
+          :pic="defaultPic"
           description="Description"
           
         />
         <AboutCard
           name="Kimball"
-          pic="/placeholder.jpg"
-          description="Description"
+          :pic="defaultPic"
+          description="I love cybersecurity!"
           
         />
         <AboutCard
@@ -44,6 +44,7 @@ import AboutCard from '@/components/AboutCard.vue';
 import ryanPic from '@/assets/ryan.jpg';
 import samPic from '@/assets/sam.png';
 import mayaPic from '@/assets/maya.jpg';
+import defaultPic from '@/assets/placeholder.jpg';
 
 export default {
   name: 'AboutView',
