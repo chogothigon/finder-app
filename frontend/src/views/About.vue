@@ -12,8 +12,8 @@
         />
         <AboutCard
           name="Reese"
-          :pic="defaultPic"
-          description="Description"
+          pic="/placeholder.jpg"
+          description="I like working on fun cybersecurity projects!"
           
         />
         <AboutCard
