@@ -21,7 +21,7 @@
       <h1>Sign In</h1>
       <p class="subtitle">Sign in to save your favorite cars.</p>
       <v-btn
-        :href="`${apiOrigin}/api/v1/auth/google`"
+        href="/api/v1/auth/google"
         color="primary"
         size="large"
         prepend-icon="mdi-google"
